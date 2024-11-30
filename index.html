@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player Audio con Loop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background-color: black; /* Imposta lo sfondo nero */
+      color: white; /* Cambia il colore del testo a bianco per visibilità */
+    }
+    .slider {
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Robovox By Domenico Pizzurro</h1>
+
+  <!-- Player Audio con loop -->
+  <audio id="audioPlayer" src="audio.wav" loop></audio>
+
+  <!-- Pulsante di riproduzione -->
+  <button id="playButton">Riproduci Audio</button>
+  <br><br>
+
+  <!-- Velocità -->
+  <label for="speed">Velocità: </label>
+  <input type="range" id="speed" min="0.5" max="2" step="0.1" value="1" class="slider">
+  <span id="speedValue">1x</span>
+
+  <script>
+    // Selezioniamo l'elemento audio e il pulsante
+    const audioPlayer = document.getElementById('audioPlayer');
+    const playButton = document.getElementById('playButton');
+    const speedControl = document.getElementById('speed');
+    const speedValue = document.getElementById('speedValue');
+
+    // Funzione per avviare e fermare la riproduzione audio
+    playButton.addEventListener('click', () => {
+      if (audioPlayer.paused) {
+        audioPlayer.play();
+        playButton.textContent = 'Ferma Audio';
+      } else {
+        audioPlayer.pause();
+        playButton.textContent = 'Riproduci Audio';
+      }
+    });
+
+    // Funzione per regolare la velocità di riproduzione
+    speedControl.addEventListener('input', () => {
+      const speed = speedControl.value;
+      audioPlayer.playbackRate = speed;
+      speedValue.textContent = `${speed}x`;
+    });
+
+    // Gestione errori se il file audio non è caricato
+    audioPlayer.addEventListener('error', () => {
+      alert("Il file audio non è stato trovato. Assicurati che 'audio.wav' sia nella stessa cartella del file HTML.");
+    });
+  </script>
+</body>
+</html>
